@@ -1,0 +1,66 @@
+{
+  "name": "@iotbits-io/mbox-ui-client",
+  "version": "1.0.0",
+  "description": "ModbusBox Client Library for device monitor and control across applications.",
+  "main": "./dist/mbox-ui-client.umd.js",
+  "module": "./dist/mbox-ui-client.mjs",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iotbits-us/mbox-ui-client.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit --skipLibCheck false",
+    "release": "standard-version",
+    "gh-release": "gh-release",
+    "docs": "typedoc --out docs src"
+  },
+  "dependencies": {
+    "axios": "^1.5.1",
+    "events": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.2",
+    "semantic-release": "^22.0.5",
+    "typedoc": "^0.25.2",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.5.3"
+  },
+  "keywords": [
+    "web-ui",
+    "ModbusBox",
+    "ws"
+  ],
+  "files": [
+    "dist"
+  ],
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": true,
+          "pkgRoot": ".",
+          "access": "public"
+        }
+      ]
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
