@@ -36,6 +36,14 @@
 <p>To generate documentation:</p>
 <pre><code class="language-bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">docs</span>
 </code><button>Copy</button></pre>
+<a id="md:release" class="tsd-anchor"></a><h2><a href="#md:release">Release</a></h2><p>To release a new version of this project, simply push your commits to the <code>main</code> branch or merge a pull request. The GitHub Actions workflow will automatically trigger <a href="https://semantic-release.gitbook.io/semantic-release/v/beta/">Semantic Release</a>, which will analyze your commit messages to determine the type of version bump needed (major, minor, or patch). The new version will then be automatically published to NPM, and a corresponding GitHub Release will be created, complete with auto-generated release notes. Ensure your commit messages adhere to <a href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines">Angular Commit Message Conventions</a> to take full advantage of this feature.</p>
+<ul>
+<li><strong>Patch</strong>: For fixes (<code>fix:</code>)</li>
+<li><strong>Minor</strong>: For new features (<code>feat:</code>)</li>
+<li><strong>Major</strong>: For breaking changes (<code>BREAKING CHANGE:</code>)</li>
+</ul>
+<pre><code class="language-markdown"><span class="hl-1">&lt;type&gt;(&lt;scope&gt;): &lt;short summary&gt;</span><br/><span class="hl-1">  │       │             │</span><br/><span class="hl-1">  │       │             └─⫸ Summary in present tense. Not capitalized. No period at the end.</span><br/><span class="hl-1">  │       │</span><br/><span class="hl-1">  │       └─⫸ Commit Scope: animations|bazel|benchpress|common|compiler|compiler-cli|core|</span><br/><span class="hl-1">  │                          elements|forms|http|language-service|localize|platform-browser|</span><br/><span class="hl-1">  │                          platform-browser-dynamic|platform-server|router|service-worker|</span><br/><span class="hl-1">  │                          upgrade|zone.js|packaging|changelog|docs-infra|migrations|</span><br/><span class="hl-1">  │                          devtools</span><br/><span class="hl-1">  │</span><br/><span class="hl-1">  └─⫸ Commit Type: build|ci|docs|feat|fix|perf|refactor|test</span>
+</code><button>Copy</button></pre>
 <a id="md:license" class="tsd-anchor"></a><h2><a href="#md:license">License</a></h2><p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
 </div></div>
 <div class="col-sidebar">
@@ -71,6 +79,7 @@
 <li><a href="#md:example"><span>Example</span></a></li></ul></li>
 <li><a href="#md:api-documentation"><span>API <wbr/>Documentation</span></a></li>
 <li><a href="#md:development"><span>Development</span></a></li>
+<li><a href="#md:release"><span>Release</span></a></li>
 <li><a href="#md:license"><span>License</span></a></li></ul></li></ul></li></ul></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1"></use></svg><span>@iotbits-io/mbox-ui-client</span></a>
