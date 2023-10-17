@@ -1,6 +1,6 @@
 {
   "name": "@iotbits-io/mbox-ui-client",
-  "version": "1.0.0",
+  "version": "0.0.0-semantic-release",
   "description": "ModbusBox Client Library for device monitor and control across applications.",
   "main": "./dist/mbox-ui-client.umd.js",
   "module": "./dist/mbox-ui-client.mjs",
