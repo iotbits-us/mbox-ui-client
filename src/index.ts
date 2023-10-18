@@ -26,10 +26,10 @@ import { WebSocketClient } from "./WebSocketClient";
 
 class MBoxClient {
   private updated = false;
-  private status: IRecord = {};
+  public status: IRecord = {};
   private slavesUpdated = false;
   private slaves: IRecord[] = [];
-  private info: IRecord = {};
+  public info: IRecord = {};
   public manifest: IRecord = {};
   private webSocketClient: WebSocketClient;
 
@@ -305,24 +305,24 @@ class MBoxClient {
     return this.request<void>(message);
   }
 
- /**
- * Executes a function on a slave device.
- * @param {number} slaveId The ID of the slave device.
- * @param {ExecOptions} options The execution options.
- * @returns {Promise<void>}
- */
-public slaveExec(slaveId: number, options: IExecOptions): Promise<void> {
-  let message = new SlaveExecMessage();
+  /**
+   * Executes a function on a slave device.
+   * @param {number} slaveId The ID of the slave device.
+   * @param {ExecOptions} options The execution options.
+   * @returns {Promise<void>}
+   */
+  public slaveExec(slaveId: number, options: IExecOptions): Promise<void> {
+    let message = new SlaveExecMessage();
 
-  message.data = {
-    id: slaveId,
-    f_name: options.funcName,
-    opt_name: options.optionName,
-    value: options.value ? options.value : 0,
-  };
+    message.data = {
+      id: slaveId,
+      f_name: options.funcName,
+      opt_name: options.optionName,
+      value: options.value ? options.value : 0,
+    };
 
-  return this.request<void>(message);
-}
+    return this.request<void>(message);
+  }
 
   /**
    * Subscribes to host status updates.
