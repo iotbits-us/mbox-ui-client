@@ -79,7 +79,6 @@ export class WebSocketClient {
     try {
       const response = await axios.get(`http://${this.host}/auth`, {
         timeout: this.config.authenticationTimeout,
-        withCredentials: true,
         headers: {
           "Content-Type": "application/json",
         },
