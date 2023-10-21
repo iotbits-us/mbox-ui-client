@@ -20,7 +20,7 @@ enum WebSocketEvents {
 // Default configuration for the WebSocket client
 const DEFAULT_CONFIG: IWebSocketClientConfig = {
   authenticationTimeout: 60000,
-  connectionTimeout: 60000,
+  connectionTimeout: 10000,
   requestTimeout: 10000,
 };
 
@@ -195,5 +195,15 @@ export class WebSocketClient {
         reject(new Error("WebSocket is not in the OPEN state"));
       }
     });
+  }
+
+  /**
+   * Unsubscribes from a specific message type.
+   *
+   * @param {Message} message - The message type to unsubscribe from.
+   * @param {Function} listener - The listener function to remove.
+   */
+  public off(message: Message, listener: Function) {
+    this.eventEmitter.off(message.type, listener);
   }
 }
