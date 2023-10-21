@@ -28,25 +28,39 @@ class MBoxClient {
   private updated = false;
   public status: IRecord = {};
   private slavesUpdated = false;
-  private slaves: IRecord[] = [];
+  public slaves: IRecord[] = [];
   public info: IRecord = {};
   public manifest: IRecord = {};
   private webSocketClient: WebSocketClient;
+  private initializedCallbacks: Array<() => void> = [];
+  private hostStatusUpdateListener: ((status: IHostStatus) => void) | null = null;
+  private hostErrorListener: ((error: Error) => void) | null = null;
 
   constructor(private host: string) {
     this.webSocketClient = new WebSocketClient(host);
-    this.initialize();
+    // this.initialize();
   }
 
-  private async initialize() {
-    try {
-      this.manifest = await this.loadManifest();
-      await this.webSocketClient.open();
-      this.initializeEventHandlers();
-    } catch (error) {
-      if (error instanceof Error) {
-        this.handleError(error);
+  public async init(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.manifest = await this.loadManifest();
+        await this.webSocketClient.open();
+        this.initializeEventHandlers();
+        this.notifyInitialized();
+        resolve();
+      } catch (error) {
+        if (error instanceof Error) {
+          this.handleError(error);
+        }
+        reject(error);
       }
+    });
+  }
+
+  private notifyInitialized(): void {
+    for (const cb of this.initializedCallbacks) {
+      cb();
     }
   }
 
@@ -306,6 +320,15 @@ class MBoxClient {
   }
 
   /**
+   * Subscribes a callback function to be executed when the client is initialized.
+   *
+   * @param {() => void} cb - The callback function to execute upon initialization.
+   */
+  public onInitialized(cb: () => void): void {
+    this.initializedCallbacks.push(cb);
+  }
+
+  /**
    * Executes a function on a slave device.
    * @param {number} slaveId The ID of the slave device.
    * @param {ExecOptions} options The execution options.
@@ -329,11 +352,24 @@ class MBoxClient {
    * @param {(status: Models.HostStatus) => void} cb Callback function to execute when a status update is received.
    */
   public onHostStatusUpdate(cb: (status: IHostStatus) => void) {
-    return this.webSocketClient.on(HostStatusMessage, (status: IHostStatus) => {
+    // Save a reference to the listener function
+    this.hostStatusUpdateListener = (status: IHostStatus) => {
       if (this.updated) {
         cb(status);
       }
-    });
+    };
+
+    return this.webSocketClient.on(HostStatusMessage, this.hostStatusUpdateListener);
+  }
+
+  /**
+   * Unsubscribes from host status updates.
+   * Use this method to stop listening to host status updates when they are no longer needed.
+   */
+  public offHostStatusUpdate() {
+    if (this.hostStatusUpdateListener) {
+      this.webSocketClient.off(HostStatusMessage, this.hostStatusUpdateListener);
+    }
   }
 
   /**
@@ -341,9 +377,22 @@ class MBoxClient {
    * @param {(error: Models.Error) => void} cb Callback function to execute when an error message is received.
    */
   public onHostError(cb: (error: Error) => void) {
-    return this.webSocketClient.on(ErrorMessage, (error: any) => {
+    // Save a reference to the listener function
+    this.hostErrorListener = (error: any) => {
       cb(error);
-    });
+    };
+
+    return this.webSocketClient.on(ErrorMessage, this.hostErrorListener);
+  }
+
+  /**
+   * Unsubscribes from host error messages.
+   * Use this method to stop receiving error messages from the host when they are no longer needed.
+   */
+  public offHostError() {
+    if (this.hostErrorListener) {
+      this.webSocketClient.off(ErrorMessage, this.hostErrorListener);
+    }
   }
 
   /**
