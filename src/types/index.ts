@@ -1,18 +1,10 @@
-export interface IRecord {
-  [key: string]: any;
-}
-
-export interface IWebSocketClientConfig {
+export type WebSocketClientConfig = {
   authenticationTimeout: number;
   connectionTimeout: number;
   requestTimeout: number;
-}
+};
 
-export interface IErrorMessage {
-  error_code: string;
-}
-
-export interface ISettings {
+export type DeviceConfig = {
   hostname?: string;
   wifi_ssid?: string;
   wifi_pass?: string;
@@ -37,53 +29,57 @@ export interface ISettings {
   modbus_polling_enabled?: boolean;
   modbus_polling_interval?: number;
   admin_pass?: string;
-}
+};
 
-interface IHostInfoTopics {
+export type InfoTopics = {
   host: string;
-}
+};
 
-export interface IHostInfo {
-  hostname: string;
-  acps_triggered: boolean;
-  app_name: string;
-  app_version: string;
-  app_build: string;
-  manufacturer: string;
-  chip_id: string;
-  mac: string;
-  sdk: string;
-  mqtt_data_mode: number;
-  slave_count: number;
-  max_slv_allowed: number;
-  manifest_ready: boolean;
-  manifest_version: string;
-  manifest_size: number;
-  manifest_slaves_count: number;
-  modbus_polling_enabled: boolean;
-  modbus_polling_interval: number;
-  topics: IHostInfoTopics;
-}
-export interface IHostStatus {
-  change_pass: boolean;
-  free_heap: number;
-  used_heap: number;
-  uptime: number;
-  load_average: number;
-  wifi_connected: boolean;
-  mqtt_status: number;
-  polling_cycle: boolean;
-  input_voltage: string;
-  ssid: string;
-  ip: string;
-  bssid: string;
-  channel: number;
-  rssi: number;
-  signal_quality: number;
-}
+export type DeviceInfo = {
+  hostname?: string;
+  acps_triggered?: boolean;
+  app_name?: string;
+  app_version?: string;
+  app_build?: string;
+  manufacturer?: string;
+  chip_id?: string;
+  mac?: string;
+  sdk?: string;
+  mqtt_data_mode?: number;
+  slave_count?: number;
+  max_slv_allowed?: number;
+  manifest_ready?: boolean;
+  manifest_version?: string;
+  manifest_size?: number;
+  manifest_slaves_count?: number;
+  modbus_polling_enabled?: boolean;
+  modbus_polling_interval?: number;
+  topics?: InfoTopics;
+};
 
-export interface IExecOptions {
+export type DeviceStatus = {
+  change_pass?: boolean;
+  free_heap?: number;
+  used_heap?: number;
+  uptime?: number;
+  load_average?: number;
+  wifi_connected?: boolean;
+  mqtt_status?: number;
+  polling_cycle?: boolean;
+  input_voltage?: string;
+  ssid?: string;
+  ip?: string;
+  bssid?: string;
+  channel?: number;
+  rssi?: number;
+  signal_quality?: number;
+  last_cycle_duration?: number;
+};
+
+export type ExecOptions = {
   funcName: string;
   optionName: string;
   value?: any;
 };
+
+export type { Manifest } from "./manifest";
