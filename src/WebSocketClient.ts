@@ -1,8 +1,8 @@
 import axios from "axios";
 import { EventEmitter } from "./EventEmitter";
-import { Message } from "./models/messages";
+import { Message } from "./models";
 import { WebSocketOpenError, AuthenticationError, MessageParseError } from "./errors";
-import { IWebSocketClientConfig } from "./types";
+import { WebSocketClientConfig } from "./types";
 
 // Enum to represent WebSocket connection states
 enum WebSocketState {
@@ -18,7 +18,7 @@ enum WebSocketEvents {
 }
 
 // Default configuration for the WebSocket client
-const DEFAULT_CONFIG: IWebSocketClientConfig = {
+const DEFAULT_CONFIG: WebSocketClientConfig = {
   authenticationTimeout: 60000,
   connectionTimeout: 10000,
   requestTimeout: 10000,
@@ -38,7 +38,7 @@ export class WebSocketClient {
    * @param {string} host - The host to connect to.
    * @param {IWebSocketClientConfig} [config=DEFAULT_CONFIG] - Configuration options for the WebSocket client.
    */
-  constructor(host: string, private readonly config: IWebSocketClientConfig = DEFAULT_CONFIG) {
+  constructor(host: string, private readonly config: WebSocketClientConfig = DEFAULT_CONFIG) {
     this.host = host;
   }
 
