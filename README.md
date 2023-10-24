@@ -39,22 +39,22 @@ const deviceIp = "192.168.4.1"
 
 const client = new MBoxClient(deviceIp);
 
-// Subscribes to host status updates.
-client.onHostStatusUpdate((status) => {
+// Subscribes to status updates.
+client.onStatusUpdate((status) => {
     console.log(status);
 });
 
-// Subscribes to host error messages
-client.onHostError((error) => {
+// Subscribes to device error messages
+client.onDeviceError((error) => {
     console.log(error);
 });
 
 // Flash LED to locate device
 await client.locate();
  
-// Get Host Info 
-const hostInfo = await client.getHostInfo();
-console.log(hostInfo);
+// Get Device Info 
+const deviceInfo = await client.getInfo();
+console.log(deviceInfo);
 
 ```
 

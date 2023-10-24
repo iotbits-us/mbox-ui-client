@@ -3,59 +3,43 @@ import { ManifestLoadError, WebSocketOpenError } from "./errors";
 import {
   ErrorMessage,
   FactoryResetMessage,
-  HostInfoMessage,
-  HostStatusMessage,
+  InfoMessage,
+  StatusMessage,
   LocateMessage,
   Password,
   RebootMessage,
   ReloadMessage,
-  SettingsListMessage,
-  SettingsSetMessage,
+  ConfigListMessage,
+  ConfigSetMessage,
   SlaveAddMessage,
   SlaveExecMessage,
   SlaveListMessage,
   SlaveRemoveMessage,
   WiFiScanMessage,
 } from "./models";
-import { IExecOptions, IHostInfo, IHostStatus, IRecord, ISettings } from "$types";
+
 import * as Utils from "./utils";
+import { ExecOptions, DeviceInfo, DeviceStatus, DeviceConfig, Manifest } from "$types";
 import { MANIFEST_FILENAME, REQUEST_TIMEOUT } from "./utils/constants";
 
 // Internal Components
 import { WebSocketClient } from "./WebSocketClient";
 
+interface IRecord {
+  [key: string]: any;
+}
+
 class MBoxClient {
-  private updated = false;
-  public status: IRecord = {};
   private slavesUpdated = false;
   public slaves: IRecord[] = [];
-  public info: IRecord = {};
-  public manifest: IRecord = {};
+  public manifest: Manifest | null = null;
   private webSocketClient: WebSocketClient;
   private initializedCallbacks: Array<() => void> = [];
-  private hostStatusUpdateListener: ((status: IHostStatus) => void) | null = null;
-  private hostErrorListener: ((error: Error) => void) | null = null;
+  private statusUpdateListener: ((status: DeviceStatus) => void) | null = null;
+  private deviceErrorListener: ((error: Error) => void) | null = null;
 
   constructor(private host: string) {
     this.webSocketClient = new WebSocketClient(host);
-    // this.initialize();
-  }
-
-  public async init(): Promise<void> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        this.manifest = await this.loadManifest();
-        await this.webSocketClient.open();
-        this.initializeEventHandlers();
-        this.notifyInitialized();
-        resolve();
-      } catch (error) {
-        if (error instanceof Error) {
-          this.handleError(error);
-        }
-        reject(error);
-      }
-    });
   }
 
   private notifyInitialized(): void {
@@ -77,18 +61,7 @@ class MBoxClient {
   }
 
   private initializeEventHandlers(): void {
-    this.webSocketClient.on(HostStatusMessage, this.handleHostStatusUpdate.bind(this));
-    this.webSocketClient.on(HostInfoMessage, this.handleHostInfoUpdate.bind(this));
     this.webSocketClient.on(SlaveListMessage, this.handleSlaveListUpdate.bind(this));
-  }
-
-  private handleHostStatusUpdate(status: Record<string, any>): void {
-    this.status = { ...this.status, ...status };
-    this.updated = true;
-  }
-
-  private handleHostInfoUpdate(info: Record<string, any>): void {
-    this.info = { ...this.info, ...info };
   }
 
   private async handleSlaveListUpdate(data: Record<string, any>): Promise<void> {
@@ -102,7 +75,7 @@ class MBoxClient {
   private processSlaves(slavesData: Record<string, any>[]): Record<string, any>[] {
     return slavesData
       .map((slave) => {
-        const foundSlaveManifest = this.manifest.slaves.find(
+        const foundSlaveManifest = this.manifest?.slaves.find(
           (slvManifest: Record<string, any>) => slvManifest.id === slave.manifest_id
         );
 
@@ -121,7 +94,7 @@ class MBoxClient {
     return updatedSlave;
   }
 
-  private async loadManifest(): Promise<Record<string, any>> {
+  private async loadManifest(): Promise<Manifest> {
     try {
       const response = await fetch(`http://${this.host}/${MANIFEST_FILENAME}`);
       if (!response.ok) throw new ManifestLoadError(`HTTP error! Status: ${response.status}`);
@@ -141,6 +114,23 @@ class MBoxClient {
     );
   }
 
+  public async init(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.manifest = await this.loadManifest();
+        await this.webSocketClient.open();
+        this.initializeEventHandlers();
+        this.notifyInitialized();
+        resolve();
+      } catch (error) {
+        if (error instanceof Error) {
+          this.handleError(error);
+        }
+        reject(error);
+      }
+    });
+  }
+
   /**
    * Flash the locate LED.
    * @returns {Promise<void>} A promise that resolves when the operation is complete.
@@ -150,14 +140,14 @@ class MBoxClient {
     return this.request<void>(message);
   }
 
-  public getHostInfo(): Promise<IHostInfo> {
-    let message = new HostInfoMessage();
-    return this.request<IHostInfo>(message);
+  public getInfo(): Promise<DeviceInfo> {
+    let message = new InfoMessage();
+    return this.request<DeviceInfo>(message);
   }
 
-  public getHostStatus(): Promise<IHostStatus> {
-    let message = new HostStatusMessage();
-    return this.request<IHostStatus>(message);
+  public getStatus(): Promise<DeviceStatus> {
+    let message = new StatusMessage();
+    return this.request<DeviceStatus>(message);
   }
 
   public wifiScan(): Promise<any> {
@@ -166,18 +156,18 @@ class MBoxClient {
   }
 
   public setWiFi(network: any): Promise<void> {
-    let message = new SettingsSetMessage(network);
+    let message = new ConfigSetMessage(network);
     return this.request<void>(message);
   }
 
-  public getSettings(): Promise<ISettings> {
-    let message = new SettingsListMessage();
-    return this.request<ISettings>(message);
+  public getConfig(): Promise<DeviceConfig> {
+    let message = new ConfigListMessage();
+    return this.request<DeviceConfig>(message);
   }
 
-  public setSettings(data: ISettings): Promise<ISettings> {
-    let message = new SettingsSetMessage(data);
-    return this.request<ISettings>(message);
+  public setConfig(data: DeviceConfig): Promise<DeviceConfig> {
+    let message = new ConfigSetMessage(data);
+    return this.request<DeviceConfig>(message);
   }
 
   public getSlave(slaveId?: number): Promise<any> {
@@ -199,7 +189,7 @@ class MBoxClient {
               let tempReg16 = slave.regs16 ? [...slave.regs16] : [];
               let tempReg32 = slave.regs32 ? [...slave.regs32] : [];
 
-              let foundSlaveManifest = manifest.slaves.find((slvManifest: any) => {
+              let foundSlaveManifest = manifest?.slaves.find((slvManifest: any) => {
                 return slvManifest.id === slave.manifest_id;
               });
 
@@ -207,11 +197,11 @@ class MBoxClient {
                 reject();
               }
 
-              slave.regs16 = foundSlaveManifest.regs16 ? [...foundSlaveManifest.regs16] : [];
-              slave.regs32 = foundSlaveManifest.regs32 ? [...foundSlaveManifest.regs32] : [];
-              slave.functions = foundSlaveManifest.functions ? [...foundSlaveManifest.functions] : [];
-              slave.device_manufacturer = foundSlaveManifest.device_manufacturer;
-              slave.device_model = foundSlaveManifest.device_model;
+              slave.regs16 = foundSlaveManifest?.regs16 ? [...foundSlaveManifest.regs16] : [];
+              slave.regs32 = foundSlaveManifest?.regs32 ? [...foundSlaveManifest.regs32] : [];
+              slave.functions = foundSlaveManifest?.functions ? [...foundSlaveManifest.functions] : [];
+              slave.device_manufacturer = foundSlaveManifest?.device_manufacturer;
+              slave.device_model = foundSlaveManifest?.device_model;
 
               slave.regs16.forEach((register: any) => {
                 let found = tempReg16.find((element: any) => {
@@ -288,7 +278,7 @@ class MBoxClient {
    * @returns {Promise<void>}
    */
   public changePassword(newPassword: Password): Promise<void> {
-    let message = new SettingsSetMessage({ admin_pass: newPassword.password });
+    let message = new ConfigSetMessage({ admin_pass: newPassword.password });
     return this.request<void>(message);
   }
 
@@ -311,7 +301,7 @@ class MBoxClient {
   }
 
   /**
-   * Resets the device to factory settings.
+   * Resets the device to factory config.
    * @returns {Promise<void>}
    */
   public factoryReset(): Promise<void> {
@@ -334,7 +324,7 @@ class MBoxClient {
    * @param {ExecOptions} options The execution options.
    * @returns {Promise<void>}
    */
-  public slaveExec(slaveId: number, options: IExecOptions): Promise<void> {
+  public slaveExec(slaveId: number, options: ExecOptions): Promise<void> {
     let message = new SlaveExecMessage();
 
     message.data = {
@@ -348,50 +338,48 @@ class MBoxClient {
   }
 
   /**
-   * Subscribes to host status updates.
-   * @param {(status: Models.HostStatus) => void} cb Callback function to execute when a status update is received.
+   * Subscribes to status updates.
+   * @param {(status: DeviceStatus) => void} cb Callback function to execute when a status update is received.
    */
-  public onHostStatusUpdate(cb: (status: IHostStatus) => void) {
+  public onStatusUpdate(cb: (status: DeviceStatus) => void) {
     // Save a reference to the listener function
-    this.hostStatusUpdateListener = (status: IHostStatus) => {
-      if (this.updated) {
-        cb(status);
-      }
+    this.statusUpdateListener = (status: DeviceStatus) => {
+      cb(status);
     };
 
-    return this.webSocketClient.on(HostStatusMessage, this.hostStatusUpdateListener);
+    return this.webSocketClient.on(StatusMessage, this.statusUpdateListener);
   }
 
   /**
-   * Unsubscribes from host status updates.
-   * Use this method to stop listening to host status updates when they are no longer needed.
+   * Unsubscribes from status updates.
+   * Use this method to stop listening to status updates when they are no longer needed.
    */
-  public offHostStatusUpdate() {
-    if (this.hostStatusUpdateListener) {
-      this.webSocketClient.off(HostStatusMessage, this.hostStatusUpdateListener);
+  public offStatusUpdate() {
+    if (this.statusUpdateListener) {
+      this.webSocketClient.off(StatusMessage, this.statusUpdateListener);
     }
   }
 
   /**
-   * Subscribes to host error messages.
-   * @param {(error: Models.Error) => void} cb Callback function to execute when an error message is received.
+   * Subscribes to device error messages.
+   * @param {(error: Error) => void} cb Callback function to execute when an error message is received.
    */
-  public onHostError(cb: (error: Error) => void) {
+  public onDeviceError(cb: (error: Error) => void) {
     // Save a reference to the listener function
-    this.hostErrorListener = (error: any) => {
+    this.deviceErrorListener = (error: any) => {
       cb(error);
     };
 
-    return this.webSocketClient.on(ErrorMessage, this.hostErrorListener);
+    return this.webSocketClient.on(ErrorMessage, this.deviceErrorListener);
   }
 
   /**
-   * Unsubscribes from host error messages.
-   * Use this method to stop receiving error messages from the host when they are no longer needed.
+   * Unsubscribes from device error messages.
+   * Use this method to stop receiving error messages from the devce when they are no longer needed.
    */
-  public offHostError() {
-    if (this.hostErrorListener) {
-      this.webSocketClient.off(ErrorMessage, this.hostErrorListener);
+  public offDeviceError() {
+    if (this.deviceErrorListener) {
+      this.webSocketClient.off(ErrorMessage, this.deviceErrorListener);
     }
   }
 
@@ -410,4 +398,22 @@ class MBoxClient {
 
 export { MBoxClient };
 
-export * from "./models/messages";
+export type {
+  ErrorMessage,
+  FactoryResetMessage,
+  InfoMessage,
+  StatusMessage,
+  LocateMessage,
+  Message,
+  RebootMessage,
+  ReloadMessage,
+  ConfigListMessage,
+  ConfigSetMessage,
+  SlaveAddMessage,
+  SlaveExecMessage,
+  SlaveListMessage,
+  SlaveRemoveMessage,
+  WiFiScanMessage,
+} from "./models";
+
+export type { DeviceInfo, DeviceStatus, Manifest, DeviceConfig, ExecOptions } from "./types";
