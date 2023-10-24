@@ -1,10 +1,9 @@
 import { Message } from "./Message";
-import { IErrorMessage } from "$types";
 
 export class ErrorMessage extends Message {
   public static readonly type: string = "error";
 
-  constructor(data?: IErrorMessage) {
+  constructor(data?: { error_code: string }) {
     super(ErrorMessage.type, data);
   }
 
