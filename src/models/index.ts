@@ -11,14 +11,15 @@ export { SlaveExecMessage } from "./messages/SlaveExecMessage";
 export { InfoMessage } from "./messages/InfoMessage";
 export { StatusMessage } from "./messages/StatusMessage";
 
-// Network-related Messages
-export { LocateMessage } from "./messages/LocateMessage";
-export { WiFiScanMessage } from "./messages/WiFiScanMessage";
+// WiFi-related Messages
+export { WiFiScanStartMessage } from "./messages/WiFiScanStartMessage";
+export { WiFiScanCompleteMessage } from "./messages/WiFiScanCompleteMessage";
 
 // System-related Messages
 export { RebootMessage } from "./messages/RebootMessage";
 export { ReloadMessage } from "./messages/ReloadMessage";
 export { FactoryResetMessage } from "./messages/FactoryResetMessage";
+export { LocateMessage } from "./messages/LocateMessage";
 
 // Config-related Messages
 export { ConfigListMessage } from "./messages/ConfigListMessage";

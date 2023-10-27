@@ -3,7 +3,7 @@ import { Message } from "./Message";
 export class ErrorMessage extends Message {
   public static readonly type: string = "error";
 
-  constructor(data?: { error_code: string }) {
+  constructor(data?: { error_code: number }) {
     super(ErrorMessage.type, data);
   }
 

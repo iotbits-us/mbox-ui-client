@@ -15,11 +15,12 @@ import {
   SlaveExecMessage,
   SlaveListMessage,
   SlaveRemoveMessage,
-  WiFiScanMessage,
+  WiFiScanStartMessage,
+  WiFiScanCompleteMessage,
 } from "./models";
 
 import * as Utils from "./utils";
-import { ExecOptions, DeviceInfo, DeviceStatus, DeviceConfig, Manifest } from "$types";
+import { ExecOptions, DeviceInfo, DeviceStatus, DeviceConfig, Manifest, WiFiNetwork } from "$types";
 import { MANIFEST_FILENAME, REQUEST_TIMEOUT } from "./utils/constants";
 
 // Internal Components
@@ -36,7 +37,8 @@ class MBoxClient {
   private webSocketClient: WebSocketClient;
   private initializedCallbacks: Array<() => void> = [];
   private statusUpdateListener: ((status: DeviceStatus) => void) | null = null;
-  private deviceErrorListener: ((error: Error) => void) | null = null;
+  private deviceErrorListener: ((error: {error_code: number}) => void) | null = null;
+  private wifiScanCompleteListener: (({networks}: {networks: WiFiNetwork[]}) => void) | null = null;
 
   constructor(private host: string) {
     this.webSocketClient = new WebSocketClient(host);
@@ -150,8 +152,8 @@ class MBoxClient {
     return this.request<DeviceStatus>(message);
   }
 
-  public wifiScan(): Promise<any> {
-    let message = new WiFiScanMessage();
+  public wifiScan(): Promise<void> {
+    let message = new WiFiScanStartMessage();
     return this.request<any>(message);
   }
 
@@ -352,7 +354,6 @@ class MBoxClient {
 
   /**
    * Unsubscribes from status updates.
-   * Use this method to stop listening to status updates when they are no longer needed.
    */
   public offStatusUpdate() {
     if (this.statusUpdateListener) {
@@ -364,9 +365,9 @@ class MBoxClient {
    * Subscribes to device error messages.
    * @param {(error: Error) => void} cb Callback function to execute when an error message is received.
    */
-  public onDeviceError(cb: (error: Error) => void) {
+  public onDeviceError(cb: (error: {error_code: number}) => void) {
     // Save a reference to the listener function
-    this.deviceErrorListener = (error: any) => {
+    this.deviceErrorListener = (error: {error_code: number}) => {
       cb(error);
     };
 
@@ -375,7 +376,6 @@ class MBoxClient {
 
   /**
    * Unsubscribes from device error messages.
-   * Use this method to stop receiving error messages from the devce when they are no longer needed.
    */
   public offDeviceError() {
     if (this.deviceErrorListener) {
@@ -393,6 +393,28 @@ class MBoxClient {
         cb(this.slaves);
       }
     });
+  }
+
+  /**
+   * Subscribes to status updates.
+   * @param {(networks: WiFiNetwork[]) => void} cb Callback function to execute when Wi-Fi scan completed.
+   */
+  public onWiFiScanComplete(cb: (networks: WiFiNetwork[]) => void) {
+    // Save a reference to the listener function
+    this.wifiScanCompleteListener = ({networks}: {networks: WiFiNetwork[]}) => {
+      cb(networks);
+    };
+
+    return this.webSocketClient.on(WiFiScanCompleteMessage, this.wifiScanCompleteListener);
+  }
+
+  /**
+   * Unsubscribes from WiFi Scan Complete.
+   */
+  public offWiFiScanComplete() {
+    if (this.wifiScanCompleteListener) {
+      this.webSocketClient.off(WiFiScanCompleteMessage, this.wifiScanCompleteListener);
+    }
   }
 }
 
@@ -413,7 +435,8 @@ export type {
   SlaveExecMessage,
   SlaveListMessage,
   SlaveRemoveMessage,
-  WiFiScanMessage,
+  WiFiScanStartMessage,
+  WiFiScanCompleteMessage,
 } from "./models";
 
-export type { DeviceInfo, DeviceStatus, Manifest, DeviceConfig, ExecOptions } from "./types";
+export type { DeviceInfo, DeviceStatus, Manifest, DeviceConfig, ExecOptions, WiFiNetwork } from "./types";
