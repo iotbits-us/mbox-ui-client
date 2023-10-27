@@ -74,12 +74,23 @@ export type DeviceStatus = {
   rssi?: number;
   signal_quality?: number;
   last_cycle_duration?: number;
+  pending_reboot?: boolean;
 };
 
 export type ExecOptions = {
   funcName: string;
   optionName: string;
   value?: any;
+};
+
+export type WiFiNetwork = {
+  ssid: string;
+  rssi: number;
+  security: number;
+  bssid: string;
+  channel: number;
+  quality: number;
+  encryption: string;
 };
 
 export type { Manifest } from "./manifest";
