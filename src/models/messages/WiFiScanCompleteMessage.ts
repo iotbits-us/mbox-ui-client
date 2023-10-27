@@ -1,4 +1,4 @@
-import { WiFiNetwork } from "*";
+import { WiFiNetwork } from "$types";
 import { Message } from "./Message";
 
 export class WiFiScanCompleteMessage extends Message {
