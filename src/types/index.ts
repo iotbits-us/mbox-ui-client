@@ -77,12 +77,6 @@ export type DeviceStatus = {
   pending_reboot?: boolean;
 };
 
-export type ExecOptions = {
-  funcName: string;
-  optionName: string;
-  value?: any;
-};
-
 export type WiFiNetwork = {
   ssid: string;
   rssi: number;
@@ -94,3 +88,5 @@ export type WiFiNetwork = {
 };
 
 export type { Manifest } from "./manifest";
+
+export type { Slave, FunCommand, SlaveFunction } from "./slave";
