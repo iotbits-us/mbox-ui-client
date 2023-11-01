@@ -20,7 +20,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">MBoxClient</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L33">index.ts:33</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L29">index.ts:29</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -36,7 +36,7 @@
 <a href="MBoxClient.html#host" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>host</span></a>
 <a href="MBoxClient.html#initializedCallbacks" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>initialized<wbr/>Callbacks</span></a>
 <a href="MBoxClient.html#manifest" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>manifest</span></a>
-<a href="MBoxClient.html#slaves" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>slaves</span></a>
+<a href="MBoxClient.html#slaves" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>slaves</span></a>
 <a href="MBoxClient.html#slavesUpdated" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>slaves<wbr/>Updated</span></a>
 <a href="MBoxClient.html#statusUpdateListener" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>status<wbr/>Update<wbr/>Listener</span></a>
 <a href="MBoxClient.html#webSocketClient" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>web<wbr/>Socket<wbr/>Client</span></a>
@@ -46,10 +46,13 @@
 <h3 class="tsd-index-heading">Methods</h3>
 <div class="tsd-index-list"><a href="MBoxClient.html#addSlave" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>add<wbr/>Slave</span></a>
 <a href="MBoxClient.html#changePassword" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>change<wbr/>Password</span></a>
+<a href="MBoxClient.html#enrichSlave" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>enrich<wbr/>Slave</span></a>
 <a href="MBoxClient.html#factoryReset" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>factory<wbr/>Reset</span></a>
+<a href="MBoxClient.html#findSlaveById" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>find<wbr/>Slave<wbr/>By<wbr/>Id</span></a>
 <a href="MBoxClient.html#getConfig" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Config</span></a>
 <a href="MBoxClient.html#getInfo" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Info</span></a>
 <a href="MBoxClient.html#getSlave" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Slave</span></a>
+<a href="MBoxClient.html#getSlaves" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Slaves</span></a>
 <a href="MBoxClient.html#getStatus" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Status</span></a>
 <a href="MBoxClient.html#handleError" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>handle<wbr/>Error</span></a>
 <a href="MBoxClient.html#handleSlaveListUpdate" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>handle<wbr/>Slave<wbr/>List<wbr/>Update</span></a>
@@ -66,15 +69,17 @@
 <a href="MBoxClient.html#onSlavesUpdate" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>on<wbr/>Slaves<wbr/>Update</span></a>
 <a href="MBoxClient.html#onStatusUpdate" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>on<wbr/>Status<wbr/>Update</span></a>
 <a href="MBoxClient.html#onWiFiScanComplete" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>on<wbr/>Wi<wbr/>Fi<wbr/>Scan<wbr/>Complete</span></a>
+<a href="MBoxClient.html#processReceivedSlaves" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>process<wbr/>Received<wbr/>Slaves</span></a>
 <a href="MBoxClient.html#processSlaves" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>process<wbr/>Slaves</span></a>
 <a href="MBoxClient.html#reboot" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>reboot</span></a>
 <a href="MBoxClient.html#reload" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>reload</span></a>
 <a href="MBoxClient.html#removeSlave" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>remove<wbr/>Slave</span></a>
 <a href="MBoxClient.html#request" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>request</span></a>
+<a href="MBoxClient.html#runSlaveFunction" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>run<wbr/>Slave<wbr/>Function</span></a>
 <a href="MBoxClient.html#setConfig" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>set<wbr/>Config</span></a>
 <a href="MBoxClient.html#setWiFi" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>set<wbr/>Wi<wbr/>Fi</span></a>
-<a href="MBoxClient.html#slaveExec" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>slave<wbr/>Exec</span></a>
 <a href="MBoxClient.html#updateSlaveRegisters" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>update<wbr/>Slave<wbr/>Registers</span></a>
+<a href="MBoxClient.html#waitForSlaveListResponse" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>wait<wbr/>For<wbr/>Slave<wbr/>List<wbr/>Response</span></a>
 <a href="MBoxClient.html#wifiScan" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>wifi<wbr/>Scan</span></a>
 </div></section></div></details></section></section>
 <section class="tsd-panel-group tsd-member-group">
@@ -91,7 +96,7 @@
 <h5><span class="tsd-kind-parameter">host</span>: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="MBoxClient.html" class="tsd-signature-type tsd-kind-class">MBoxClient</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L43">index.ts:43</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L39">index.ts:39</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="deviceErrorListener" class="tsd-anchor"></a>
@@ -114,12 +119,12 @@
 <h5><span class="tsd-kind-property">error_<wbr/>code</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5></li></ul></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L40">index.ts:40</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L36">index.ts:36</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="host" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>host</span><a href="#host" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">host</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L43">index.ts:43</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L39">index.ts:39</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="initializedCallbacks" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>initialized<wbr/>Callbacks</span><a href="#initializedCallbacks" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">initialized<wbr/>Callbacks</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
@@ -132,22 +137,22 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L38">index.ts:38</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L34">index.ts:34</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="manifest" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>manifest</span><a href="#manifest" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">manifest</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/Manifest.html" class="tsd-signature-type tsd-kind-type-alias">Manifest</a><span class="tsd-signature-symbol"> = null</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L36">index.ts:36</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member"><a id="slaves" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>slaves</span><a href="#slaves" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">slaves</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type ">IRecord</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div><aside class="tsd-sources">
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L32">index.ts:32</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-is-private"><a id="slaves" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>slaves</span><a href="#slaves" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">slaves</span><span class="tsd-signature-symbol">:</span> <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L35">index.ts:35</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L31">index.ts:31</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="slavesUpdated" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>slaves<wbr/>Updated</span><a href="#slavesUpdated" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">slaves<wbr/>Updated</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L34">index.ts:34</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L30">index.ts:30</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="statusUpdateListener" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>status<wbr/>Update<wbr/>Listener</span><a href="#statusUpdateListener" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">status<wbr/>Update<wbr/>Listener</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">status</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> = null</span></div>
@@ -165,12 +170,12 @@
 <h5><span class="tsd-kind-parameter">status</span>: <a href="../types/DeviceStatus.html" class="tsd-signature-type tsd-kind-type-alias">DeviceStatus</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L39">index.ts:39</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L35">index.ts:35</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="webSocketClient" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>web<wbr/>Socket<wbr/>Client</span><a href="#webSocketClient" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">web<wbr/>Socket<wbr/>Client</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type ">WebSocketClient</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L37">index.ts:37</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L33">index.ts:33</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="wifiScanCompleteListener" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>wifi<wbr/>Scan<wbr/>Complete<wbr/>Listener</span><a href="#wifiScanCompleteListener" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">wifi<wbr/>Scan<wbr/>Complete<wbr/>Listener</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">__namedParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> = null</span></div>
@@ -191,7 +196,7 @@
 <h5><span class="tsd-kind-property">networks</span><span class="tsd-signature-symbol">: </span><a href="../types/WiFiNetwork.html" class="tsd-signature-type tsd-kind-type-alias">WiFiNetwork</a><span class="tsd-signature-symbol">[]</span></h5></li></ul></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L41">index.ts:41</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L37">index.ts:37</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member"><a id="addSlave" class="tsd-anchor"></a>
@@ -203,10 +208,10 @@
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">slave</span>: <span class="tsd-signature-type">any</span></h5></li></ul></div>
+<h5><span class="tsd-kind-parameter">slave</span>: <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L267">index.ts:267</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L236">index.ts:236</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="changePassword" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>change<wbr/>Password</span><a href="#changePassword" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -225,7 +230,20 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L282">index.ts:282</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L251">index.ts:251</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-is-private"><a id="enrichSlave" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>enrich<wbr/>Slave</span><a href="#enrichSlave" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-private">
+<li class="tsd-signature tsd-anchor-link" id="enrichSlave.enrichSlave-1"><span class="tsd-kind-call-signature">enrich<wbr/>Slave</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slave</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><a href="#enrichSlave.enrichSlave-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">slave</span>: <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L133">index.ts:133</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="factoryReset" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>factory<wbr/>Reset</span><a href="#factoryReset" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -236,7 +254,22 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L309">index.ts:309</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L278">index.ts:278</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-is-private"><a id="findSlaveById" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>find<wbr/>Slave<wbr/>By<wbr/>Id</span><a href="#findSlaveById" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-private">
+<li class="tsd-signature tsd-anchor-link" id="findSlaveById.findSlaveById-1"><span class="tsd-kind-call-signature">find<wbr/>Slave<wbr/>By<wbr/>Id</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slaves</span>, <span class="tsd-kind-parameter">slaveId</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><a href="#findSlaveById.findSlaveById-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">slaves</span>: <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">[]</span></h5></li>
+<li>
+<h5><span class="tsd-kind-parameter">slaveId</span>: <span class="tsd-signature-type">number</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L146">index.ts:146</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="getConfig" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Config</span><a href="#getConfig" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -244,7 +277,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/DeviceConfig.html" class="tsd-signature-type tsd-kind-type-alias">DeviceConfig</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L165">index.ts:165</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L196">index.ts:196</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="getInfo" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Info</span><a href="#getInfo" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -252,20 +285,28 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/DeviceInfo.html" class="tsd-signature-type tsd-kind-type-alias">DeviceInfo</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L145">index.ts:145</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L176">index.ts:176</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="getSlave" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Slave</span><a href="#getSlave" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="getSlave.getSlave-1"><span class="tsd-kind-call-signature">get<wbr/>Slave</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slaveId</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><a href="#getSlave.getSlave-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="getSlave.getSlave-1"><span class="tsd-kind-call-signature">get<wbr/>Slave</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slaveId</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">&gt;</span><a href="#getSlave.getSlave-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">slaveId</span>: <span class="tsd-signature-type">number</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h5><span class="tsd-kind-parameter">slaveId</span>: <span class="tsd-signature-type">number</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L175">index.ts:175</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L206">index.ts:206</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="getSlaves" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Slaves</span><a href="#getSlaves" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="getSlaves.getSlaves-1"><span class="tsd-kind-call-signature">get<wbr/>Slaves</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#getSlaves.getSlaves-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L222">index.ts:222</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="getStatus" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Status</span><a href="#getStatus" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -273,7 +314,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/DeviceStatus.html" class="tsd-signature-type tsd-kind-type-alias">DeviceStatus</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L150">index.ts:150</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L181">index.ts:181</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="handleError" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>handle<wbr/>Error</span><a href="#handleError" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-private">
@@ -286,7 +327,7 @@
 <h5><span class="tsd-kind-parameter">error</span>: <span class="tsd-signature-type ">Error</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L53">index.ts:53</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L49">index.ts:49</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="handleSlaveListUpdate" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>handle<wbr/>Slave<wbr/>List<wbr/>Update</span><a href="#handleSlaveListUpdate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-private">
@@ -299,7 +340,7 @@
 <h5><span class="tsd-kind-parameter">data</span>: <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L69">index.ts:69</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L65">index.ts:65</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="init" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>init</span><a href="#init" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -307,7 +348,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L119">index.ts:119</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L150">index.ts:150</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="initializeEventHandlers" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>initialize<wbr/>Event<wbr/>Handlers</span><a href="#initializeEventHandlers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-private">
@@ -315,7 +356,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L65">index.ts:65</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L61">index.ts:61</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="loadManifest" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>load<wbr/>Manifest</span><a href="#loadManifest" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-private">
@@ -323,7 +364,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Manifest.html" class="tsd-signature-type tsd-kind-type-alias">Manifest</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L99">index.ts:99</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L97">index.ts:97</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="locate" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>locate</span><a href="#locate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -335,7 +376,7 @@
 
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L140">index.ts:140</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L171">index.ts:171</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="notifyInitialized" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>notify<wbr/>Initialized</span><a href="#notifyInitialized" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-private">
@@ -343,7 +384,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L47">index.ts:47</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L43">index.ts:43</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="offDeviceError" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>off<wbr/>Device<wbr/>Error</span><a href="#offDeviceError" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -354,7 +395,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L380">index.ts:380</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L343">index.ts:343</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="offStatusUpdate" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>off<wbr/>Status<wbr/>Update</span><a href="#offStatusUpdate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -365,7 +406,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L358">index.ts:358</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L321">index.ts:321</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="offWiFiScanComplete" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>off<wbr/>Wi<wbr/>Fi<wbr/>Scan<wbr/>Complete</span><a href="#offWiFiScanComplete" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -376,7 +417,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L414">index.ts:414</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L377">index.ts:377</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onDeviceError" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Device<wbr/>Error</span><a href="#onDeviceError" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -409,7 +450,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L368">index.ts:368</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L331">index.ts:331</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onInitialized" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Initialized</span><a href="#onInitialized" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -434,7 +475,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L319">index.ts:319</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L288">index.ts:288</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onSlavesUpdate" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Slaves<wbr/>Update</span><a href="#onSlavesUpdate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -453,7 +494,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L390">index.ts:390</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L353">index.ts:353</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onStatusUpdate" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Status<wbr/>Update</span><a href="#onStatusUpdate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -483,7 +524,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L346">index.ts:346</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L309">index.ts:309</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onWiFiScanComplete" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Wi<wbr/>Fi<wbr/>Scan<wbr/>Complete</span><a href="#onWiFiScanComplete" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -513,20 +554,33 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L402">index.ts:402</a></li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member tsd-is-private"><a id="processSlaves" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>process<wbr/>Slaves</span><a href="#processSlaves" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L365">index.ts:365</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-is-private"><a id="processReceivedSlaves" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>process<wbr/>Received<wbr/>Slaves</span><a href="#processReceivedSlaves" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-private">
-<li class="tsd-signature tsd-anchor-link" id="processSlaves.processSlaves-1"><span class="tsd-kind-call-signature">process<wbr/>Slaves</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slavesData</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><a href="#processSlaves.processSlaves-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="processReceivedSlaves.processReceivedSlaves-1"><span class="tsd-kind-call-signature">process<wbr/>Received<wbr/>Slaves</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slaves</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">[]</span><a href="#processReceivedSlaves.processReceivedSlaves-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">slavesData</span>: <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<h5><span class="tsd-kind-parameter">slaves</span>: <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L77">index.ts:77</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L125">index.ts:125</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-is-private"><a id="processSlaves" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>process<wbr/>Slaves</span><a href="#processSlaves" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-private">
+<li class="tsd-signature tsd-anchor-link" id="processSlaves.processSlaves-1"><span class="tsd-kind-call-signature">process<wbr/>Slaves</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slavesData</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">[]</span><a href="#processSlaves.processSlaves-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">slavesData</span>: <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L73">index.ts:73</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="reboot" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>reboot</span><a href="#reboot" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -537,7 +591,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L300">index.ts:300</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L269">index.ts:269</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="reload" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>reload</span><a href="#reload" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -548,7 +602,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L291">index.ts:291</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L260">index.ts:260</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="removeSlave" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>remove<wbr/>Slave</span><a href="#removeSlave" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -561,7 +615,7 @@
 <h5><span class="tsd-kind-parameter">id</span>: <span class="tsd-signature-type">number</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L272">index.ts:272</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L241">index.ts:241</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="request" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>request</span><a href="#request" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-private">
@@ -579,7 +633,22 @@
 <h5><span class="tsd-kind-parameter">message</span>: <span class="tsd-signature-type">any</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L109">index.ts:109</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L107">index.ts:107</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="runSlaveFunction" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>run<wbr/>Slave<wbr/>Function</span><a href="#runSlaveFunction" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="runSlaveFunction.runSlaveFunction-1"><span class="tsd-kind-call-signature">run<wbr/>Slave<wbr/>Function</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slaveId</span>, <span class="tsd-kind-parameter">funCommand</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#runSlaveFunction.runSlaveFunction-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">slaveId</span>: <span class="tsd-signature-type">number</span></h5></li>
+<li>
+<h5><span class="tsd-kind-parameter">funCommand</span>: <a href="../types/FunCommand.html" class="tsd-signature-type tsd-kind-type-alias">FunCommand</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L292">index.ts:292</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="setConfig" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Config</span><a href="#setConfig" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -592,7 +661,7 @@
 <h5><span class="tsd-kind-parameter">data</span>: <a href="../types/DeviceConfig.html" class="tsd-signature-type tsd-kind-type-alias">DeviceConfig</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/DeviceConfig.html" class="tsd-signature-type tsd-kind-type-alias">DeviceConfig</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L170">index.ts:170</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L201">index.ts:201</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="setWiFi" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Wi<wbr/>Fi</span><a href="#setWiFi" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -605,46 +674,30 @@
 <h5><span class="tsd-kind-parameter">network</span>: <span class="tsd-signature-type">any</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L160">index.ts:160</a></li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member"><a id="slaveExec" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>slave<wbr/>Exec</span><a href="#slaveExec" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
-<ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="slaveExec.slaveExec-1"><span class="tsd-kind-call-signature">slave<wbr/>Exec</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slaveId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#slaveExec.slaveExec-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
-<li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Executes a function on a slave device.</p>
-</div>
-<div class="tsd-parameters">
-<h4 class="tsd-parameters-title">Parameters</h4>
-<ul class="tsd-parameter-list">
-<li>
-<h5><span class="tsd-kind-parameter">slaveId</span>: <span class="tsd-signature-type">number</span></h5>
-<div class="tsd-comment tsd-typography"><p>The ID of the slave device.</p>
-</div>
-<div class="tsd-comment tsd-typography"></div></li>
-<li>
-<h5><span class="tsd-kind-parameter">options</span>: <a href="../types/ExecOptions.html" class="tsd-signature-type tsd-kind-type-alias">ExecOptions</a></h5>
-<div class="tsd-comment tsd-typography"><p>The execution options.</p>
-</div>
-<div class="tsd-comment tsd-typography"></div></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
-<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L329">index.ts:329</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L191">index.ts:191</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="updateSlaveRegisters" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>update<wbr/>Slave<wbr/>Registers</span><a href="#updateSlaveRegisters" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-private">
-<li class="tsd-signature tsd-anchor-link" id="updateSlaveRegisters.updateSlaveRegisters-1"><span class="tsd-kind-call-signature">update<wbr/>Slave<wbr/>Registers</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slave</span>, <span class="tsd-kind-parameter">foundSlaveManifest</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><a href="#updateSlaveRegisters.updateSlaveRegisters-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="updateSlaveRegisters.updateSlaveRegisters-1"><span class="tsd-kind-call-signature">update<wbr/>Slave<wbr/>Registers</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slave</span>, <span class="tsd-kind-parameter">foundSlaveManifest</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a><a href="#updateSlaveRegisters.updateSlaveRegisters-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">slave</span>: <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5></li>
+<h5><span class="tsd-kind-parameter">slave</span>: <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a></h5></li>
 <li>
-<h5><span class="tsd-kind-parameter">foundSlaveManifest</span>: <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h5><span class="tsd-kind-parameter">foundSlaveManifest</span>: <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../types/Slave.html" class="tsd-signature-type tsd-kind-type-alias">Slave</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L91">index.ts:91</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L87">index.ts:87</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-is-private"><a id="waitForSlaveListResponse" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>wait<wbr/>For<wbr/>Slave<wbr/>List<wbr/>Response</span><a href="#waitForSlaveListResponse" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-private">
+<li class="tsd-signature tsd-anchor-link" id="waitForSlaveListResponse.waitForSlaveListResponse-1"><span class="tsd-kind-call-signature">wait<wbr/>For<wbr/>Slave<wbr/>List<wbr/>Response</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><a href="#waitForSlaveListResponse.waitForSlaveListResponse-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L117">index.ts:117</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="wifiScan" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>wifi<wbr/>Scan</span><a href="#wifiScan" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -652,7 +705,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/b0417ed/src/index.ts#L155">index.ts:155</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/iotbits-us/mbox-ui-client/blob/c15444b/src/index.ts#L186">index.ts:186</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -677,17 +730,20 @@
 <li><a href="#host" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>host</span></a></li>
 <li><a href="#initializedCallbacks" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>initialized<wbr/>Callbacks</span></a></li>
 <li><a href="#manifest" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>manifest</span></a></li>
-<li><a href="#slaves" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>slaves</span></a></li>
+<li><a href="#slaves" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>slaves</span></a></li>
 <li><a href="#slavesUpdated" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>slaves<wbr/>Updated</span></a></li>
 <li><a href="#statusUpdateListener" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>status<wbr/>Update<wbr/>Listener</span></a></li>
 <li><a href="#webSocketClient" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>web<wbr/>Socket<wbr/>Client</span></a></li>
 <li><a href="#wifiScanCompleteListener" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>wifi<wbr/>Scan<wbr/>Complete<wbr/>Listener</span></a></li>
 <li><a href="#addSlave" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>add<wbr/>Slave</span></a></li>
 <li><a href="#changePassword" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>change<wbr/>Password</span></a></li>
+<li><a href="#enrichSlave" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>enrich<wbr/>Slave</span></a></li>
 <li><a href="#factoryReset" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>factory<wbr/>Reset</span></a></li>
+<li><a href="#findSlaveById" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>find<wbr/>Slave<wbr/>By<wbr/>Id</span></a></li>
 <li><a href="#getConfig" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Config</span></a></li>
 <li><a href="#getInfo" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Info</span></a></li>
 <li><a href="#getSlave" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Slave</span></a></li>
+<li><a href="#getSlaves" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Slaves</span></a></li>
 <li><a href="#getStatus" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Status</span></a></li>
 <li><a href="#handleError" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>handle<wbr/>Error</span></a></li>
 <li><a href="#handleSlaveListUpdate" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>handle<wbr/>Slave<wbr/>List<wbr/>Update</span></a></li>
@@ -704,15 +760,17 @@
 <li><a href="#onSlavesUpdate" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>on<wbr/>Slaves<wbr/>Update</span></a></li>
 <li><a href="#onStatusUpdate" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>on<wbr/>Status<wbr/>Update</span></a></li>
 <li><a href="#onWiFiScanComplete" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>on<wbr/>Wi<wbr/>Fi<wbr/>Scan<wbr/>Complete</span></a></li>
+<li><a href="#processReceivedSlaves" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>process<wbr/>Received<wbr/>Slaves</span></a></li>
 <li><a href="#processSlaves" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>process<wbr/>Slaves</span></a></li>
 <li><a href="#reboot" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>reboot</span></a></li>
 <li><a href="#reload" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>reload</span></a></li>
 <li><a href="#removeSlave" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>remove<wbr/>Slave</span></a></li>
 <li><a href="#request" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>request</span></a></li>
+<li><a href="#runSlaveFunction" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>run<wbr/>Slave<wbr/>Function</span></a></li>
 <li><a href="#setConfig" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>set<wbr/>Config</span></a></li>
 <li><a href="#setWiFi" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>set<wbr/>Wi<wbr/>Fi</span></a></li>
-<li><a href="#slaveExec" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>slave<wbr/>Exec</span></a></li>
 <li><a href="#updateSlaveRegisters" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>update<wbr/>Slave<wbr/>Registers</span></a></li>
+<li><a href="#waitForSlaveListResponse" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>wait<wbr/>For<wbr/>Slave<wbr/>List<wbr/>Response</span></a></li>
 <li><a href="#wifiScan" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>wifi<wbr/>Scan</span></a></li></ul></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="../modules.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1"></use></svg><span>@iotbits-io/mbox-ui-client</span></a>
@@ -737,7 +795,7 @@
 <li><a href="../types/DeviceConfig.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>DeviceConfig</a></li>
 <li><a href="../types/DeviceInfo.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>DeviceInfo</a></li>
 <li><a href="../types/DeviceStatus.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>DeviceStatus</a></li>
-<li><a href="../types/ExecOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>ExecOptions</a></li>
+<li><a href="../types/FunCommand.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>FunCommand</a></li>
 <li>Loading...</li></ul></nav></div></div></div>
 <div class="tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" rel="noopener" target="_blank">TypeDoc</a></p></div>
