@@ -20,25 +20,21 @@ import {
 } from "./models";
 
 import * as Utils from "./utils";
-import { ExecOptions, DeviceInfo, DeviceStatus, DeviceConfig, Manifest, WiFiNetwork } from "$types";
+import { DeviceInfo, DeviceStatus, DeviceConfig, Manifest, WiFiNetwork, Slave, FunCommand } from "$types";
 import { MANIFEST_FILENAME, REQUEST_TIMEOUT } from "./utils/constants";
 
 // Internal Components
 import { WebSocketClient } from "./WebSocketClient";
 
-interface IRecord {
-  [key: string]: any;
-}
-
 class MBoxClient {
   private slavesUpdated = false;
-  public slaves: IRecord[] = [];
+  private slaves: Slave[] = [];
   public manifest: Manifest | null = null;
   private webSocketClient: WebSocketClient;
   private initializedCallbacks: Array<() => void> = [];
   private statusUpdateListener: ((status: DeviceStatus) => void) | null = null;
-  private deviceErrorListener: ((error: {error_code: number}) => void) | null = null;
-  private wifiScanCompleteListener: (({networks}: {networks: WiFiNetwork[]}) => void) | null = null;
+  private deviceErrorListener: ((error: { error_code: number }) => void) | null = null;
+  private wifiScanCompleteListener: (({ networks }: { networks: WiFiNetwork[] }) => void) | null = null;
 
   constructor(private host: string) {
     this.webSocketClient = new WebSocketClient(host);
@@ -74,25 +70,27 @@ class MBoxClient {
     this.slavesUpdated = true;
   }
 
-  private processSlaves(slavesData: Record<string, any>[]): Record<string, any>[] {
+  private processSlaves(slavesData: Slave[]): Slave[] {
     return slavesData
       .map((slave) => {
         const foundSlaveManifest = this.manifest?.slaves.find(
-          (slvManifest: Record<string, any>) => slvManifest.id === slave.manifest_id
+          (slvManifest: Slave) => slvManifest.id === slave.manifest_id
         );
 
         if (!foundSlaveManifest) return;
 
         return this.updateSlaveRegisters(slave, foundSlaveManifest);
       })
-      .filter(Boolean) as Record<string, any>[];
+      .filter(Boolean) as Slave[];
   }
 
-  private updateSlaveRegisters(
-    slave: Record<string, any>,
-    foundSlaveManifest: Record<string, any>
-  ): Record<string, any> {
+  private updateSlaveRegisters(slave: Slave, foundSlaveManifest: Slave): Slave {
     const updatedSlave = { ...slave, ...foundSlaveManifest };
+    updatedSlave.functions?.map((fun) => {
+      fun.options.map((opt) => {
+        opt.funCommand = { funName: fun.name, optName: opt.name, value: opt.val };
+      });
+    });
     return updatedSlave;
   }
 
@@ -114,6 +112,39 @@ class MBoxClient {
         }, reject);
       })
     );
+  }
+
+  private waitForSlaveListResponse(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const message = new SlaveListMessage();
+      this.webSocketClient.once(message, resolve);
+      setTimeout(() => reject(new Error("Request timeout")), REQUEST_TIMEOUT);
+    });
+  }
+
+  private processReceivedSlaves(slaves: Slave[]): Slave[] {
+    if (!slaves) {
+      throw new Error("No slaves data received");
+    }
+
+    return slaves.map((slave: Slave) => this.enrichSlave(slave)).filter(Boolean) as Slave[];
+  }
+
+  private enrichSlave(slave: Slave): Slave | null {
+    const manifestClone = structuredClone(this.manifest);
+    const foundSlaveManifest: Slave = manifestClone?.slaves.find(
+      (slvManifest: any) => slvManifest.id === slave.manifest_id
+    ) as Slave;
+
+    if (!foundSlaveManifest) {
+      return null;
+    }
+
+    return this.updateSlaveRegisters(slave, foundSlaveManifest);
+  }
+
+  private findSlaveById(slaves: Slave[], slaveId: number): Slave | null {
+    return slaves.find((slave) => slave.id === slaveId) || null;
   }
 
   public async init(): Promise<void> {
@@ -172,99 +203,37 @@ class MBoxClient {
     return this.request<DeviceConfig>(message);
   }
 
-  public getSlave(slaveId?: number): Promise<any> {
-    return new Promise((resolve, reject) => {
-      let message = new SlaveListMessage();
-
-      this.webSocketClient.send(message).then(
-        () => {
-          this.webSocketClient.once(message, (data: any) => {
-            if (!data.slaves) {
-              reject();
-            }
-
-            let slaves = structuredClone(data.slaves);
-
-            slaves.forEach((slave: any) => {
-              let manifest = structuredClone(this.manifest);
-
-              let tempReg16 = slave.regs16 ? [...slave.regs16] : [];
-              let tempReg32 = slave.regs32 ? [...slave.regs32] : [];
-
-              let foundSlaveManifest = manifest?.slaves.find((slvManifest: any) => {
-                return slvManifest.id === slave.manifest_id;
-              });
-
-              if (!foundSlaveManifest) {
-                reject();
-              }
-
-              slave.regs16 = foundSlaveManifest?.regs16 ? [...foundSlaveManifest.regs16] : [];
-              slave.regs32 = foundSlaveManifest?.regs32 ? [...foundSlaveManifest.regs32] : [];
-              slave.functions = foundSlaveManifest?.functions ? [...foundSlaveManifest.functions] : [];
-              slave.device_manufacturer = foundSlaveManifest?.device_manufacturer;
-              slave.device_model = foundSlaveManifest?.device_model;
-
-              slave.regs16.forEach((register: any) => {
-                let found = tempReg16.find((element: any) => {
-                  return element.address === register.address;
-                });
-                if (found) {
-                  register.enabled = true;
-                  register.lastRead = found.lastRead;
-                  register.readTime = found.readTime ? found.readTime : 0;
-                  register.hasFailed = found.hasFailed ? found.hasFailed : false;
-                } else {
-                  register.enabled = false;
-                }
-              });
-
-              slave.regs32.forEach((register: any) => {
-                let found = tempReg32.find((element: any) => {
-                  return element.address === register.address;
-                });
-                if (found) {
-                  register.enabled = true;
-                  register.lastRead = found.lastRead;
-                  register.readTime = found.readTime ? found.readTime : 0;
-                  register.hasFailed = found.hasFailed ? found.hasFailed : false;
-                } else {
-                  register.enabled = false;
-                }
-              });
-            });
-
-            if (slaveId === undefined) {
-              this.slaves = slaves;
-              resolve(slaves);
-            }
-
-            let selectedSlave = slaves.find(function (element: any) {
-              return element.id === slaveId;
-            });
-
-            let found: any[] = [];
-
-            if (selectedSlave) {
-              found.push(selectedSlave);
-            }
-
-            resolve(found);
-          });
-        },
-        () => {
-          reject();
-        }
-      );
-
-      // Set timeout
-      setTimeout(function () {
-        reject();
-      }, REQUEST_TIMEOUT);
-    });
+  public async getSlave(slaveId: number): Promise<Slave | null> {
+    try {
+      // Request "Slave List" from device
+      const message = new SlaveListMessage();
+      await this.webSocketClient.send(message);
+      // Wait for "Slave List"
+      const data = await this.waitForSlaveListResponse();
+      // Process received slaves and enrich them with manifest
+      const slaves = this.processReceivedSlaves(data.slaves);
+      // Find slave by id
+      return this.findSlaveById(slaves, slaveId);
+    } catch (error) {
+      return Promise.reject("An error occurred while getting the slave");
+    }
   }
 
-  public addSlave(slave: any): Promise<void> {
+  public async getSlaves(): Promise<Slave[] | []> {
+    try {
+      // Request "Slave List" from device
+      const message = new SlaveListMessage();
+      await this.webSocketClient.send(message);
+      // Wait for "Slave List"
+      const data = await this.waitForSlaveListResponse();
+      // Process received slaves and enrich them with manifest
+      return this.processReceivedSlaves(data.slaves);
+    } catch (error) {
+      return Promise.reject("An error occurred while getting slaves");
+    }
+  }
+
+  public addSlave(slave: Slave): Promise<void> {
     let message = new SlaveAddMessage(slave);
     return this.request<void>(message);
   }
@@ -320,20 +289,14 @@ class MBoxClient {
     this.initializedCallbacks.push(cb);
   }
 
-  /**
-   * Executes a function on a slave device.
-   * @param {number} slaveId The ID of the slave device.
-   * @param {ExecOptions} options The execution options.
-   * @returns {Promise<void>}
-   */
-  public slaveExec(slaveId: number, options: ExecOptions): Promise<void> {
+  public runSlaveFunction(slaveId: number, funCommand: FunCommand): Promise<void> {
     let message = new SlaveExecMessage();
 
     message.data = {
       id: slaveId,
-      f_name: options.funcName,
-      opt_name: options.optionName,
-      value: options.value ? options.value : 0,
+      f_name: funCommand.funName,
+      opt_name: funCommand.optName,
+      value: funCommand.value ? funCommand.value : 0,
     };
 
     return this.request<void>(message);
@@ -365,9 +328,9 @@ class MBoxClient {
    * Subscribes to device error messages.
    * @param {(error: Error) => void} cb Callback function to execute when an error message is received.
    */
-  public onDeviceError(cb: (error: {error_code: number}) => void) {
+  public onDeviceError(cb: (error: { error_code: number }) => void) {
     // Save a reference to the listener function
-    this.deviceErrorListener = (error: {error_code: number}) => {
+    this.deviceErrorListener = (error: { error_code: number }) => {
       cb(error);
     };
 
@@ -401,7 +364,7 @@ class MBoxClient {
    */
   public onWiFiScanComplete(cb: (networks: WiFiNetwork[]) => void) {
     // Save a reference to the listener function
-    this.wifiScanCompleteListener = ({networks}: {networks: WiFiNetwork[]}) => {
+    this.wifiScanCompleteListener = ({ networks }: { networks: WiFiNetwork[] }) => {
       cb(networks);
     };
 
@@ -439,4 +402,13 @@ export type {
   WiFiScanCompleteMessage,
 } from "./models";
 
-export type { DeviceInfo, DeviceStatus, Manifest, DeviceConfig, ExecOptions, WiFiNetwork } from "./types";
+export type {
+  DeviceInfo,
+  DeviceStatus,
+  Manifest,
+  DeviceConfig,
+  SlaveFunction,
+  FunCommand,
+  WiFiNetwork,
+  Slave,
+} from "./types";
