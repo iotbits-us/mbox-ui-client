@@ -1,5 +1,5 @@
-import { REQUEST_TIMEOUT } from "./constants";
-import { Password } from "../models/Password";
+import { REQUEST_TIMEOUT } from "../constants";
+import { Password } from "../models";
 
 /**
  * Validates a password.
@@ -47,6 +47,3 @@ export function promisifyWithTimeout<T>(promise: Promise<T>, timeout: number = R
     );
   });
 }
-
-// Re-export all constants from constants module.
-export * as Constants from "./constants";

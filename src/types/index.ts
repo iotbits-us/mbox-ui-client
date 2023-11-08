@@ -1,3 +1,15 @@
+export type { Slave, SlaveEnriched } from "./slave";
+
+export type {
+  Manifest,
+  SlaveFromManifest,
+  Reg16,
+  Reg32,
+  SlaveFunction,
+  SlaveFunctionOption,
+  FunctionOptionCommand,
+} from "./manifest";
+
 export type WebSocketClientConfig = {
   authenticationTimeout: number;
   connectionTimeout: number;
@@ -86,7 +98,3 @@ export type WiFiNetwork = {
   quality: number;
   encryption: string;
 };
-
-export type { Manifest } from "./manifest";
-
-export type { Slave, FunCommand, SlaveFunction } from "./slave";
