@@ -1,7 +1,7 @@
 import { Reg16, Reg32, SlaveFunction } from "./manifest";
 
 export type Slave = {
-  id: number;
+  id?: number;
   type: string;
   address: number;
   manifest_id: number;

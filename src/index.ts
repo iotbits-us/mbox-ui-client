@@ -76,6 +76,7 @@ class MBoxClient {
       throw new Error("Manifest is not available.");
     }
 
+    // Slave object found in the manifest that matches the given slave's manifest ID.
     const foundSlaveFromManifest = this.manifest.slaves.find(
       (slaveFromManifest: SlaveFromManifest) => slaveFromManifest.id === slave.manifest_id
     );
@@ -85,7 +86,15 @@ class MBoxClient {
     }
 
     const enrichedSlave: SlaveEnriched = {
-      ...slave,
+      id: slave.id || 1,
+      type: slave.type,
+      address: slave.address,
+      manifest_id: slave.manifest_id,
+      name: slave.name,
+      enabled: slave.enabled,
+      baud_rate: slave.baud_rate,
+      remote_ctrl_enabled: slave.remote_ctrl_enabled,
+      remote_spdctrl_enabled: slave.remote_spdctrl_enabled,
       regs16: foundSlaveFromManifest.regs16,
       regs32: foundSlaveFromManifest.regs32,
       functions: foundSlaveFromManifest.functions.map((fun: SlaveFunction) => ({
