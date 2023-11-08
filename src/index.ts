@@ -1,49 +1,144 @@
-// Internal Constants and Utils
-import { ManifestLoadError, WebSocketOpenError } from "./errors";
-import {
-  ErrorMessage,
-  FactoryResetMessage,
-  InfoMessage,
-  StatusMessage,
-  LocateMessage,
-  Password,
-  RebootMessage,
-  ReloadMessage,
-  ConfigListMessage,
-  ConfigSetMessage,
-  SlaveAddMessage,
-  SlaveExecMessage,
-  SlaveListMessage,
-  SlaveRemoveMessage,
-  WiFiScanStartMessage,
-  WiFiScanCompleteMessage,
-} from "./models";
+import * as Models from "./models";
 
-import * as Utils from "./utils";
-import { DeviceInfo, DeviceStatus, DeviceConfig, Manifest, WiFiNetwork, Slave, FunCommand } from "$types";
-import { MANIFEST_FILENAME, REQUEST_TIMEOUT } from "./utils/constants";
+import { promisifyWithTimeout } from "./utils";
 
-// Internal Components
 import { WebSocketClient } from "./WebSocketClient";
+
+import { ManifestLoadError, WebSocketOpenError } from "./errors";
+
+import { MANIFEST_FILENAME, REQUEST_TIMEOUT } from "./constants";
+
+import {
+  DeviceInfo,
+  DeviceStatus,
+  DeviceConfig,
+  WiFiNetwork,
+  SlaveEnriched,
+  Manifest,
+  Slave,
+  SlaveFromManifest,
+  FunctionOptionCommand,
+  SlaveFunctionOption,
+  SlaveFunction,
+} from "$types";
 
 class MBoxClient {
   private slavesUpdated = false;
-  private slaves: Slave[] = [];
-  public manifest: Manifest | null = null;
+  private enrichedSlaves: SlaveEnriched[] = [];
   private webSocketClient: WebSocketClient;
   private initializedCallbacks: Array<() => void> = [];
   private statusUpdateListener: ((status: DeviceStatus) => void) | null = null;
   private deviceErrorListener: ((error: { error_code: number }) => void) | null = null;
   private wifiScanCompleteListener: (({ networks }: { networks: WiFiNetwork[] }) => void) | null = null;
 
+  public manifest: Manifest | null = null;
+
   constructor(private host: string) {
     this.webSocketClient = new WebSocketClient(host);
+  }
+
+  private async request<T>(message: any): Promise<T> {
+    return promisifyWithTimeout(
+      new Promise<T>((resolve, reject) => {
+        this.webSocketClient.send(message).then(() => {
+          this.webSocketClient.once(message, resolve);
+        }, reject);
+      })
+    );
+  }
+
+  private async handleSlaveListUpdate(data: Record<string, any>): Promise<void> {
+    if (!data.slaves) return;
+
+    const slaves: Slave[] = data.slaves;
+
+    const enrichedSlaves: SlaveEnriched[] = slaves.map((slave: Slave) => {
+      return this.enrichSlave(slave);
+    });
+
+    this.enrichedSlaves = enrichedSlaves;
+
+    this.slavesUpdated = true;
+  }
+
+  private async loadManifest(): Promise<Manifest> {
+    try {
+      const response = await fetch(`http://${this.host}/${MANIFEST_FILENAME}`);
+      if (!response.ok) throw new ManifestLoadError(`HTTP error! Status: ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      throw new ManifestLoadError(`Failed to load manifest: ${error}`);
+    }
+  }
+
+  private enrichSlave(slave: Slave): SlaveEnriched {
+    if (!this.manifest) {
+      throw new Error("Manifest is not available.");
+    }
+
+    const foundSlaveFromManifest = this.manifest.slaves.find(
+      (slaveFromManifest: SlaveFromManifest) => slaveFromManifest.id === slave.manifest_id
+    );
+
+    if (!foundSlaveFromManifest) {
+      throw new Error(`Slave with manifest ID ${slave.manifest_id} not found.`);
+    }
+
+    const enrichedSlave: SlaveEnriched = {
+      ...slave,
+      regs16: foundSlaveFromManifest.regs16,
+      regs32: foundSlaveFromManifest.regs32,
+      functions: foundSlaveFromManifest.functions.map((fun: SlaveFunction) => ({
+        ...fun,
+        options: fun.options.map((opt: SlaveFunctionOption) => ({
+          ...opt,
+          command: { functionName: fun.name, optionName: opt.name, value: opt.val },
+        })),
+      })),
+    };
+
+    return enrichedSlave;
   }
 
   private notifyInitialized(): void {
     for (const cb of this.initializedCallbacks) {
       cb();
     }
+  }
+
+  private initializeEventHandlers(): void {
+    this.webSocketClient.on(Models.SlaveListMessage, this.handleSlaveListUpdate.bind(this));
+  }
+
+  private waitForSlaveListResponse(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const message = new Models.SlaveListMessage();
+
+      // Timeout function to reject the promise after a specified time
+      const timeoutId = setTimeout(() => {
+        this.webSocketClient.off(message, onResponse);
+        reject(new Error("Request timeout"));
+      }, REQUEST_TIMEOUT);
+
+      const onResponse = (response: any) => {
+        clearTimeout(timeoutId);
+        resolve(response);
+      };
+
+      this.webSocketClient.once(message, onResponse);
+    });
+  }
+
+  private enrichReceivedSlaves(slaves: Slave[]): SlaveEnriched[] {
+    if (!slaves) {
+      throw new Error("No slaves data received");
+    }
+
+    return slaves.map((slave: Slave) => this.enrichSlave(slave)).filter(Boolean) as SlaveEnriched[];
+  }
+
+  private findSlaveById(slaves: SlaveEnriched[], slaveId: number): SlaveEnriched | null {
+    return slaves.find((slave) => slave.id === slaveId) || null;
   }
 
   private handleError(error: Error): void {
@@ -58,94 +153,7 @@ class MBoxClient {
     console.error(errorType, error);
   }
 
-  private initializeEventHandlers(): void {
-    this.webSocketClient.on(SlaveListMessage, this.handleSlaveListUpdate.bind(this));
-  }
-
-  private async handleSlaveListUpdate(data: Record<string, any>): Promise<void> {
-    if (!data.slaves) return;
-
-    const updatedSlaves = this.processSlaves(data.slaves);
-    this.slaves = updatedSlaves;
-    this.slavesUpdated = true;
-  }
-
-  private processSlaves(slavesData: Slave[]): Slave[] {
-    return slavesData
-      .map((slave) => {
-        const foundSlaveManifest = this.manifest?.slaves.find(
-          (slvManifest: Slave) => slvManifest.id === slave.manifest_id
-        );
-
-        if (!foundSlaveManifest) return;
-
-        return this.updateSlaveRegisters(slave, foundSlaveManifest);
-      })
-      .filter(Boolean) as Slave[];
-  }
-
-  private updateSlaveRegisters(slave: Slave, foundSlaveManifest: Slave): Slave {
-    const updatedSlave = { ...slave, ...foundSlaveManifest };
-    updatedSlave.functions?.map((fun) => {
-      fun.options.map((opt) => {
-        opt.funCommand = { funName: fun.name, optName: opt.name, value: opt.val };
-      });
-    });
-    return updatedSlave;
-  }
-
-  private async loadManifest(): Promise<Manifest> {
-    try {
-      const response = await fetch(`http://${this.host}/${MANIFEST_FILENAME}`);
-      if (!response.ok) throw new ManifestLoadError(`HTTP error! Status: ${response.status}`);
-      return await response.json();
-    } catch (error) {
-      throw new ManifestLoadError(`Failed to load manifest: ${error}`);
-    }
-  }
-
-  private async request<T>(message: any): Promise<T> {
-    return Utils.promisifyWithTimeout(
-      new Promise<T>((resolve, reject) => {
-        this.webSocketClient.send(message).then(() => {
-          this.webSocketClient.once(message, resolve);
-        }, reject);
-      })
-    );
-  }
-
-  private waitForSlaveListResponse(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const message = new SlaveListMessage();
-      this.webSocketClient.once(message, resolve);
-      setTimeout(() => reject(new Error("Request timeout")), REQUEST_TIMEOUT);
-    });
-  }
-
-  private processReceivedSlaves(slaves: Slave[]): Slave[] {
-    if (!slaves) {
-      throw new Error("No slaves data received");
-    }
-
-    return slaves.map((slave: Slave) => this.enrichSlave(slave)).filter(Boolean) as Slave[];
-  }
-
-  private enrichSlave(slave: Slave): Slave | null {
-    const manifestClone = structuredClone(this.manifest);
-    const foundSlaveManifest: Slave = manifestClone?.slaves.find(
-      (slvManifest: any) => slvManifest.id === slave.manifest_id
-    ) as Slave;
-
-    if (!foundSlaveManifest) {
-      return null;
-    }
-
-    return this.updateSlaveRegisters(slave, foundSlaveManifest);
-  }
-
-  private findSlaveById(slaves: Slave[], slaveId: number): Slave | null {
-    return slaves.find((slave) => slave.id === slaveId) || null;
-  }
+  /* PUBLIC API */
 
   public async init(): Promise<void> {
     return new Promise(async (resolve, reject) => {
@@ -169,87 +177,82 @@ class MBoxClient {
    * @returns {Promise<void>} A promise that resolves when the operation is complete.
    */
   public locate(): Promise<void> {
-    const message = new LocateMessage();
+    const message = new Models.LocateMessage();
     return this.request<void>(message);
   }
 
   public getInfo(): Promise<DeviceInfo> {
-    let message = new InfoMessage();
+    let message = new Models.InfoMessage();
     return this.request<DeviceInfo>(message);
   }
 
   public getStatus(): Promise<DeviceStatus> {
-    let message = new StatusMessage();
+    let message = new Models.StatusMessage();
     return this.request<DeviceStatus>(message);
   }
 
   public wifiScan(): Promise<void> {
-    let message = new WiFiScanStartMessage();
+    let message = new Models.WiFiScanStartMessage();
     return this.request<any>(message);
   }
 
   public setWiFi(network: any): Promise<void> {
-    let message = new ConfigSetMessage(network);
+    let message = new Models.ConfigSetMessage(network);
     return this.request<void>(message);
   }
 
   public getConfig(): Promise<DeviceConfig> {
-    let message = new ConfigListMessage();
+    let message = new Models.ConfigListMessage();
     return this.request<DeviceConfig>(message);
   }
 
   public setConfig(data: DeviceConfig): Promise<DeviceConfig> {
-    let message = new ConfigSetMessage(data);
+    let message = new Models.ConfigSetMessage(data);
     return this.request<DeviceConfig>(message);
   }
 
-  public async getSlave(slaveId: number): Promise<Slave | null> {
+  public async getSlave(slaveId: number): Promise<SlaveEnriched | null> {
     try {
-      // Request "Slave List" from device
-      const message = new SlaveListMessage();
+      // Request slave list from device
+      const message = new Models.SlaveListMessage();
       await this.webSocketClient.send(message);
-      // Wait for "Slave List"
+      // Wait for response
       const data = await this.waitForSlaveListResponse();
       // Process received slaves and enrich them with manifest
-      const slaves = this.processReceivedSlaves(data.slaves);
+      const enrichedSlaves: SlaveEnriched[] = this.enrichReceivedSlaves(data.slaves);
       // Find slave by id
-      return this.findSlaveById(slaves, slaveId);
+      return this.findSlaveById(enrichedSlaves, slaveId);
     } catch (error) {
       return Promise.reject("An error occurred while getting the slave");
     }
   }
 
-  public async getSlaves(): Promise<Slave[] | []> {
+  public async getSlaves(): Promise<SlaveEnriched[] | []> {
     try {
       // Request "Slave List" from device
-      const message = new SlaveListMessage();
+      const message = new Models.SlaveListMessage();
       await this.webSocketClient.send(message);
       // Wait for "Slave List"
       const data = await this.waitForSlaveListResponse();
       // Process received slaves and enrich them with manifest
-      return this.processReceivedSlaves(data.slaves);
+      return this.enrichReceivedSlaves(data.slaves);
     } catch (error) {
       return Promise.reject("An error occurred while getting slaves");
     }
   }
 
   public addSlave(slave: Slave): Promise<void> {
-    let message = new SlaveAddMessage(slave);
+    let message = new Models.SlaveAddMessage(slave);
     return this.request<void>(message);
   }
 
   public removeSlave(id: number): Promise<void> {
-    let message = new SlaveRemoveMessage({ id: id });
+    let message = new Models.SlaveRemoveMessage({ id: id });
     return this.request<void>(message);
   }
 
-  /**
-   * Changes the password.
-   * @param {Utils.Password} newPassword The new password.
-   * @returns {Promise<void>}
-   */
-  public changePassword(newPassword: Password): Promise<void> {
-    let message = new ConfigSetMessage({ admin_pass: newPassword.password });
+  public changePassword(newPassword: Models.Password): Promise<void> {
+    let message = new Models.ConfigSetMessage({ admin_pass: newPassword.password });
     return this.request<void>(message);
   }
 
@@ -258,7 +261,7 @@ class MBoxClient {
    * @returns {Promise<void>}
    */
   public reload(): Promise<void> {
-    let message = new ReloadMessage();
+    let message = new Models.ReloadMessage();
     return this.request<void>(message);
   }
 
@@ -267,7 +270,7 @@ class MBoxClient {
    * @returns {Promise<void>}
    */
   public reboot(): Promise<void> {
-    let message = new RebootMessage();
+    let message = new Models.RebootMessage();
     return this.request<void>(message);
   }
 
@@ -276,7 +279,7 @@ class MBoxClient {
    * @returns {Promise<void>}
    */
   public factoryReset(): Promise<void> {
-    let message = new FactoryResetMessage();
+    let message = new Models.FactoryResetMessage();
     return this.request<void>(message);
   }
 
@@ -289,14 +292,14 @@ class MBoxClient {
     this.initializedCallbacks.push(cb);
   }
 
-  public runSlaveFunction(slaveId: number, funCommand: FunCommand): Promise<void> {
-    let message = new SlaveExecMessage();
+  public runSlaveFunction(slaveId: number, command: FunctionOptionCommand): Promise<void> {
+    let message = new Models.SlaveExecMessage();
 
     message.data = {
       id: slaveId,
-      f_name: funCommand.funName,
-      opt_name: funCommand.optName,
-      value: funCommand.value ? funCommand.value : 0,
+      f_name: command.functionName,
+      opt_name: command.optionName,
+      value: command.value ? command.value : 0,
     };
 
     return this.request<void>(message);
@@ -312,7 +315,7 @@ class MBoxClient {
       cb(status);
     };
 
-    return this.webSocketClient.on(StatusMessage, this.statusUpdateListener);
+    return this.webSocketClient.on(Models.StatusMessage, this.statusUpdateListener);
   }
 
   /**
@@ -320,7 +323,7 @@ class MBoxClient {
    */
   public offStatusUpdate() {
     if (this.statusUpdateListener) {
-      this.webSocketClient.off(StatusMessage, this.statusUpdateListener);
+      this.webSocketClient.off(Models.StatusMessage, this.statusUpdateListener);
     }
   }
 
@@ -334,7 +337,7 @@ class MBoxClient {
       cb(error);
     };
 
-    return this.webSocketClient.on(ErrorMessage, this.deviceErrorListener);
+    return this.webSocketClient.on(Models.ErrorMessage, this.deviceErrorListener);
   }
 
   /**
@@ -342,7 +345,7 @@ class MBoxClient {
    */
   public offDeviceError() {
     if (this.deviceErrorListener) {
-      this.webSocketClient.off(ErrorMessage, this.deviceErrorListener);
+      this.webSocketClient.off(Models.ErrorMessage, this.deviceErrorListener);
     }
   }
 
@@ -351,9 +354,9 @@ class MBoxClient {
    * @param {Function} cb Callback function to execute when the list of slave devices is updated.
    */
   public onSlavesUpdate(cb: Function) {
-    this.webSocketClient.on(SlaveListMessage, (_slaves: any) => {
+    this.webSocketClient.on(Models.SlaveListMessage, (_slaves: any) => {
       if (this.slavesUpdated) {
-        cb(this.slaves);
+        cb(this.enrichedSlaves);
       }
     });
   }
@@ -368,7 +371,7 @@ class MBoxClient {
       cb(networks);
     };
 
-    return this.webSocketClient.on(WiFiScanCompleteMessage, this.wifiScanCompleteListener);
+    return this.webSocketClient.on(Models.WiFiScanCompleteMessage, this.wifiScanCompleteListener);
   }
 
   /**
@@ -376,39 +379,13 @@ class MBoxClient {
    */
   public offWiFiScanComplete() {
     if (this.wifiScanCompleteListener) {
-      this.webSocketClient.off(WiFiScanCompleteMessage, this.wifiScanCompleteListener);
+      this.webSocketClient.off(Models.WiFiScanCompleteMessage, this.wifiScanCompleteListener);
     }
   }
 }
 
+export type * from "./models";
+
+export type * from "./types";
+
 export { MBoxClient };
-
-export type {
-  ErrorMessage,
-  FactoryResetMessage,
-  InfoMessage,
-  StatusMessage,
-  LocateMessage,
-  Message,
-  RebootMessage,
-  ReloadMessage,
-  ConfigListMessage,
-  ConfigSetMessage,
-  SlaveAddMessage,
-  SlaveExecMessage,
-  SlaveListMessage,
-  SlaveRemoveMessage,
-  WiFiScanStartMessage,
-  WiFiScanCompleteMessage,
-} from "./models";
-
-export type {
-  DeviceInfo,
-  DeviceStatus,
-  Manifest,
-  DeviceConfig,
-  SlaveFunction,
-  FunCommand,
-  WiFiNetwork,
-  Slave,
-} from "./types";
