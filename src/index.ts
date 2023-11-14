@@ -20,8 +20,8 @@ import {
   FunctionOptionCommand,
   SlaveFunctionOption,
   SlaveFunction,
+  SlaveCreate,
 } from "$types";
-import { SlaveCreate } from "*";
 
 class MBoxClient {
   private slavesUpdated = false;
