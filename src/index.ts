@@ -21,6 +21,7 @@ import {
   SlaveFunctionOption,
   SlaveFunction,
 } from "$types";
+import { SlaveCreate } from "*";
 
 class MBoxClient {
   private slavesUpdated = false;
@@ -76,7 +77,6 @@ class MBoxClient {
       throw new Error("Manifest is not available.");
     }
 
-    // Slave object found in the manifest that matches the given slave's manifest ID.
     const foundSlaveFromManifest = this.manifest.slaves.find(
       (slaveFromManifest: SlaveFromManifest) => slaveFromManifest.id === slave.manifest_id
     );
@@ -95,8 +95,28 @@ class MBoxClient {
       baud_rate: slave.baud_rate,
       remote_ctrl_enabled: slave.remote_ctrl_enabled,
       remote_spdctrl_enabled: slave.remote_spdctrl_enabled,
-      regs16: foundSlaveFromManifest.regs16,
-      regs32: foundSlaveFromManifest.regs32,
+        // Process regs16
+    regs16: foundSlaveFromManifest.regs16.map(reg => {
+      const slaveReg = slave.regs16.find(slaveReg => slaveReg.address === reg.address);
+      return {
+        ...reg,
+        enabled: !!slaveReg,
+        lastRead: slaveReg?.lastRead ?? reg.lastRead,
+        readTime: slaveReg?.readTime ?? reg.readTime,
+        hasFailed: slaveReg?.hasFailed ?? reg.hasFailed
+      };
+    }),
+    // Process regs32
+    regs32: foundSlaveFromManifest.regs32.map(reg => {
+      const slaveReg = slave.regs32.find(slaveReg => slaveReg.address === reg.address);
+      return {
+        ...reg,
+        enabled: !!slaveReg,
+        lastRead: slaveReg?.lastRead ?? reg.lastRead,
+        readTime: slaveReg?.readTime ?? reg.readTime,
+        hasFailed: slaveReg?.hasFailed ?? reg.hasFailed
+      };
+    }),
       functions: foundSlaveFromManifest.functions.map((fun: SlaveFunction) => ({
         ...fun,
         options: fun.options.map((opt: SlaveFunctionOption) => ({
@@ -250,9 +270,31 @@ class MBoxClient {
     }
   }
 
-  public addSlave(slave: Slave): Promise<void> {
-    let message = new Models.SlaveAddMessage(slave);
-    return this.request<void>(message);
+  public addSlave(slave: SlaveCreate): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      let message = new Models.SlaveAddMessage(slave);
+
+      // Temporary function to handle device errors
+      const tempErrorHandler = (error: { error_code: number }) => {
+        if (error.error_code === 204) {
+          // Unsubscribe from the error event once handled
+          this.webSocketClient.off(Models.ErrorMessage, tempErrorHandler);
+          reject(new Error("Maximum number of slaves reached"));
+        }
+      };
+
+      // Subscribe to device error messages temporarily
+      this.webSocketClient.on(Models.ErrorMessage, tempErrorHandler);
+
+      // Make the request
+      this.request<void>(message)
+        .then(() => {
+          // Unsubscribe from the error event once the request is successful
+          this.webSocketClient.off(Models.ErrorMessage, tempErrorHandler);
+          resolve();
+        })
+        .catch(reject);
+    });
   }
 
   public removeSlave(id: number): Promise<void> {
