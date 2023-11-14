@@ -10,6 +10,19 @@ export type Slave = {
   baud_rate: number;
   remote_ctrl_enabled: boolean;
   remote_spdctrl_enabled: boolean;
+  regs16: Reg16[];
+  regs32: Reg32[];
+};
+
+export type SlaveCreate = {
+  type: string;
+  address: number;
+  manifest_id: number;
+  name: string;
+  enabled: boolean;
+  baud_rate: number;
+  remote_ctrl_enabled: boolean;
+  remote_spdctrl_enabled: boolean;
   regs16: number[];
   regs32: number[];
 };
