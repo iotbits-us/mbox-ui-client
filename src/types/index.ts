@@ -1,10 +1,11 @@
-export type { Slave, SlaveEnriched } from "./slave";
+export type { Slave, SlaveCreate, SlaveEnriched } from "./slave";
 
 export type {
   Manifest,
   SlaveFromManifest,
   Reg16,
   Reg32,
+  Register,
   SlaveFunction,
   SlaveFunctionOption,
   FunctionOptionCommand,

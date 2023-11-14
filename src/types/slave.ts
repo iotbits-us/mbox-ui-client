@@ -1,7 +1,20 @@
 import { Reg16, Reg32, SlaveFunction } from "./manifest";
 
 export type Slave = {
-  id: number;
+  id?: number;
+  type: string;
+  address: number;
+  manifest_id: number;
+  name: string;
+  enabled: boolean;
+  baud_rate: number;
+  remote_ctrl_enabled: boolean;
+  remote_spdctrl_enabled: boolean;
+  regs16: Reg16[];
+  regs32: Reg32[];
+};
+
+export type SlaveCreate = {
   type: string;
   address: number;
   manifest_id: number;
