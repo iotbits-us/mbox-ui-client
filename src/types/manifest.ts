@@ -52,11 +52,13 @@ export type Reg32 = {
   dp: number;
   table_type: number;
   offset: number;
-  IEEE754: boolean;
+  IEEE754?: boolean;
   lastRead?: number;
   readTime?: number;
   hasFailed?: boolean;
 };
+
+export type Register = Reg16 | Reg32;
 
 /**
  * Represents a function for an Slave in the manifest.
